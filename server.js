@@ -2,9 +2,9 @@
 projectData = {};
 
 // Express to run server and routes
-var express = require("express");
+const express = require("express");
 // Start up an instance of app
-var app = express();
+const app = express();
 
 /* Dependencies */
 /* Middleware*/
@@ -18,7 +18,7 @@ const cors = require('cors');
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('node_project'));
+app.use(express.static(__dirname + '/public'));
 
 // Spin up the server
 const port = 3000;
@@ -34,31 +34,23 @@ app.use(function(request, response) {
 
 // Initialize all route with a callback function
 
-// Callback function to complete GET '/all'
-app.get('/all', sendData);
+// // Callback function to complete GET '/all'
+app.get("/api", (req, res) => {
+    projectData.push(req.body);
+    console.log('Hello');
 
-function sendData(req, res) {
-    res.send(projectData);
-};
-
-// Post Route
-data = [];
-app.post('/', function(req, res) {
-    res.send('POST received')
 })
 
-app.post('/temperature', );
+// function sendData(req, res) {
+//     res.send(projectData);
+// };
 
-function addTemperature(req, res) {
-    data.push(req.body);
-}
+// Post Route
+app.post('/api', (req, res) => {
+    projectData.push(req.body);
+    console.log('Hello');
 
-app.post('/date', addDate);
-
-function addDate(req, res) {
-    data.push(req.body);
-}
-app.post('/userresponse', addUserResponse);
+})
 
 function addUserResponse(req, res) {
     data.push(req.body);
